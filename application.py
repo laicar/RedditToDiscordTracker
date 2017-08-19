@@ -37,5 +37,10 @@ def sendDiscordMessage(message):
 
     conn.request("POST", webhook, payload, headers)
 
+    conn.getresponse()
+    res = conn.getresponse()
+    data = res.read() # Must have read the whole response before you can send a new request to the server
+    #print(data.decode("utf-8")) # Response should be empty so no need for that
+
 if __name__ == "__main__":
     trackComment('<Tracked_word>');
