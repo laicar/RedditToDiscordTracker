@@ -1,8 +1,9 @@
 #!/usr/bin/python3.4
 import praw
 import http.client
+#import re #regex
 
-def trackComment(word):
+def trackComment():
     reddit = praw.Reddit(
         user_agent='TrackerBot v1.0',
         client_id='<Reddit app client_id>',
@@ -16,7 +17,8 @@ def trackComment(word):
 
     for comment in commentstream:
         text = comment.body # Fetch body
-        if word in text.lower():
+        if '<Tracked_word>' in text.lower():
+        #if re.search("<regex expression>", text.lower()): # Use this if using regex
             author = comment.author # Fetch author
             submissionLink = comment.link_id[3:] # Trim the t3_ at the beginning of the string
             link = "https://www.reddit.com//comments/" + submissionLink + "//" + comment.id # Build comment URL
@@ -43,4 +45,4 @@ def sendDiscordMessage(message):
     #print(data.decode("utf-8")) # Response should be empty so no need for that
 
 if __name__ == "__main__":
-    trackComment('<Tracked_word>');
+    trackComment();
