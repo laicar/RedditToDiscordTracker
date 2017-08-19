@@ -37,7 +37,7 @@ def sendDiscordMessage(message):
         'cache-control': "no-cache",
         }
 
-    conn.request("POST", webhook, payload, headers)
+    conn.request("POST", webhook, payload.encode('utf-8'), headers)
 
     conn.getresponse()
     res = conn.getresponse()
